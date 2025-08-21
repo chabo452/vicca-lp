@@ -70,7 +70,6 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
-  /* 同意モードバナー */
   #consent-banner {
     position: fixed;
     bottom: 0; left: 0; width: 100%;
@@ -85,19 +84,22 @@
   #consent-decline { background-color: #ccc; color: #333; }
 </style>
 
-<!-- GA4 同意モード用 gtag -->
+<!-- GA4 v4 同意モード -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZXGVGT5TF"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-// デフォルトで拒否
-gtag('consent', 'default', {
-  'analytics_storage': 'denied'
-});
+  // デフォルト拒否
+  gtag('consent', 'default', { 'analytics_storage': 'denied' });
+
+  const existingConsent = localStorage.getItem('vicca_consent');
+  if(existingConsent === 'yes'){
+    gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    gtag('event', 'page_view');
+  }
 </script>
-
 
 </head>
 <body>
@@ -201,6 +203,7 @@ gtag('consent', 'default', {
 </div>
 
 <script>
+  // アニメーション
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
@@ -217,41 +220,23 @@ gtag('consent', 'default', {
   const acceptBtn = document.getElementById('consent-accept');
   const declineBtn = document.getElementById('consent-decline');
 
-  function setConsent(value){
+  function setConsent(value) {
     localStorage.setItem('vicca_consent', value);
     banner.style.display = 'none';
+
     if(value === 'yes'){
-      gtag('consent', 'update', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted'
-      });
-      console.log('同意：GA4 タグを有効化');
+      gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      gtag('event', 'page_view');
     } else {
-      gtag('consent', 'update', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied'
-      });
-      console.log('非同意：GA4 タグは無効化');
+      gtag('consent', 'update', { 'analytics_storage': 'denied' });
     }
   }
 
   acceptBtn.addEventListener('click', ()=> setConsent('yes'));
   declineBtn.addEventListener('click', ()=> setConsent('no'));
 
-  const existingConsent = localStorage.getItem('vicca_consent');
-  if(existingConsent){
+  if(localStorage.getItem('vicca_consent')){
     banner.style.display = 'none';
-    if(existingConsent === 'yes'){
-      gtag('consent', 'update', {
-        'analytics_storage': 'granted',
-        'ad_storage': 'granted'
-      });
-    } else {
-      gtag('consent', 'update', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied'
-      });
-    }
   }
 </script>
 
