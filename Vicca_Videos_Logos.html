@@ -84,11 +84,25 @@
   #consent-accept { background-color: #ff69b4; color: #fff; }
   #consent-decline { background-color: #ccc; color: #333; }
 </style>
+
+<!-- GA4 同意モード用 gtag -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2ZXGVGT5TF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // デフォルトでは同意なし
+  gtag('consent', 'default', {
+    'analytics_storage': 'denied',
+    'ad_storage': 'denied'
+  });
+</script>
+
 </head>
 <body>
 
 <header>
-  <!-- 商品ロゴ（上部） -->
   <a class="logo-button animated-image" href="https://vicca.online/" target="_blank">
     <img src="logos/vicca_logo.png" alt="Vicca ロゴ">
   </a>
@@ -96,7 +110,6 @@
   <h1 class="animated-title">非加熱・高圧殺菌「Wプレスジュース」</h1>
   <p class="animated-title">毎日フルーツを食べる暮らしを手軽に、美味しく。</p>
 
-  <!-- 最初の動画 -->
   <video src="videos/concept.mp4" autoplay loop muted playsinline></video>
 </header>
 
@@ -153,7 +166,6 @@
   </p>
 
   <h3 class="animated-title">商品ラインアップ</h3>
-  <p class="animated-title"></p>
   <img class="animated-image product-screenshot" src="logos/set1_products.png" alt="Vicca 商品ラインナップ">
 
   <h3 class="animated-title">商品・販売概要</h3>
@@ -176,14 +188,12 @@
 </section>
 
 <footer>
-  <!-- 会社ロゴ（下部） -->
   <a class="logo-button animated-image" href="https://aokifruit.jp/" target="_blank">
     <img src="logos/company_logo.png" alt="青木フルーツ">
   </a>
   <p>&copy; 2025 Vicca. All Rights Reserved.</p>
 </footer>
 
-<!-- 同意モードバナー -->
 <div id="consent-banner">
   <span style="margin-right: 15px;">このサイトでは、クッキーを利用して解析・広告配信を行っています。</span>
   <button id="consent-accept">同意する</button>
@@ -191,7 +201,6 @@
 </div>
 
 <script>
-  // アニメーション
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
@@ -208,14 +217,21 @@
   const acceptBtn = document.getElementById('consent-accept');
   const declineBtn = document.getElementById('consent-decline');
 
-  function setConsent(value) {
+  function setConsent(value){
     localStorage.setItem('vicca_consent', value);
     banner.style.display = 'none';
     if(value === 'yes'){
-      console.log('同意：解析・広告タグを実行');
-      // Google Analytics や広告タグ実行
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted'
+      });
+      console.log('同意：GA4 タグを有効化');
     } else {
-      console.log('非同意：タグは実行しない');
+      gtag('consent', 'update', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied'
+      });
+      console.log('非同意：GA4 タグは無効化');
     }
   }
 
@@ -225,6 +241,17 @@
   const existingConsent = localStorage.getItem('vicca_consent');
   if(existingConsent){
     banner.style.display = 'none';
+    if(existingConsent === 'yes'){
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted'
+      });
+    } else {
+      gtag('consent', 'update', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied'
+      });
+    }
   }
 </script>
 
