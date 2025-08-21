@@ -1,0 +1,3 @@
+[submodule "vicca-lp"]
+	path = vicca-lp
+	url = https://github.com/chabo452/vicca-lp.git
