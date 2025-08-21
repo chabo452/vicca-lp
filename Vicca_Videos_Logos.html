@@ -89,7 +89,6 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
   // デフォルト拒否
   gtag('consent', 'default', { 'analytics_storage': 'denied' });
@@ -97,7 +96,28 @@
   const existingConsent = localStorage.getItem('vicca_consent');
   if(existingConsent === 'yes'){
     gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    gtag('config', 'G-2ZXGVGT5TF');
     gtag('event', 'page_view');
+  }
+
+  function setConsent(value){
+    localStorage.setItem('vicca_consent', value);
+    document.getElementById('consent-banner').style.display = 'none';
+
+    if(value === 'yes'){
+      gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      gtag('config', 'G-2ZXGVGT5TF');
+      gtag('event', 'page_view');
+    } else {
+      gtag('consent', 'update', { 'analytics_storage': 'denied' });
+    }
+  }
+
+  document.getElementById('consent-accept').addEventListener('click', ()=> setConsent('yes'));
+  document.getElementById('consent-decline').addEventListener('click', ()=> setConsent('no'));
+
+  if(existingConsent){
+    document.getElementById('consent-banner').style.display = 'none';
   }
 </script>
 
@@ -214,30 +234,6 @@
     });
   }, { threshold: 0.2 });
   document.querySelectorAll('.animated-title, .animated-image').forEach(el => observer.observe(el));
-
-  // 同意モード処理
-  const banner = document.getElementById('consent-banner');
-  const acceptBtn = document.getElementById('consent-accept');
-  const declineBtn = document.getElementById('consent-decline');
-
-  function setConsent(value) {
-    localStorage.setItem('vicca_consent', value);
-    banner.style.display = 'none';
-
-    if(value === 'yes'){
-      gtag('consent', 'update', { 'analytics_storage': 'granted' });
-      gtag('event', 'page_view');
-    } else {
-      gtag('consent', 'update', { 'analytics_storage': 'denied' });
-    }
-  }
-
-  acceptBtn.addEventListener('click', ()=> setConsent('yes'));
-  declineBtn.addEventListener('click', ()=> setConsent('no'));
-
-  if(localStorage.getItem('vicca_consent')){
-    banner.style.display = 'none';
-  }
 </script>
 
 </body>
