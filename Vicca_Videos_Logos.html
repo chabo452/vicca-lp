@@ -4,17 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vicca - Wプレスジュース</title>
-
-<!-- GA4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XXXXXXXXXX'); // ←ここにGA4測定IDを入れる
-</script>
-
 <style>
   body { font-family: 'Arial', sans-serif; margin:0; padding:0; line-height:1.6; color:#333; background:#fff; }
   header, section, footer { padding:50px 20px; max-width:900px; margin:0 auto; }
@@ -86,8 +75,7 @@
 
 <header>
   <!-- 商品ロゴ（上部） -->
-  <a class="logo-button animated-image" href="https://vicca.online/" target="_blank"
-     onclick="gtag('event','click',{event_category:'Logo', event_label:'上部ロゴ'});">
+  <a class="logo-button animated-image" href="https://vicca.online/" target="_blank">
     <img src="C:\Users\user\Desktop\Vicca_LP_Assets\logos\vicca_logo.png" alt="Vicca ロゴ">
   </a>
 
@@ -95,8 +83,7 @@
   <p class="animated-title">毎日フルーツを食べる暮らしを手軽に、美味しく。</p>
 
   <!-- 最初の動画 -->
-  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\concept.mp4" autoplay loop muted playsinline
-         onplay="gtag('event','video_play',{event_category:'Video', event_label:'Concept'});"></video>
+  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\concept.mp4" autoplay loop muted playsinline></video>
 </header>
 
 <section>
@@ -115,8 +102,7 @@
     忙しさの中でフルーツを食べる機会が減りがちな現代人に向けて、自然の力を“続けられる形”で届けることで、
     社会全体の健康促進に貢献していきたいと考えています。
   </p>
-  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\lifestyle.mp4" autoplay loop muted playsinline
-         onplay="gtag('event','video_play',{event_category:'Video', event_label:'Lifestyle'});"></video>
+  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\lifestyle.mp4" autoplay loop muted playsinline></video>
 </section>
 
 <section>
@@ -127,8 +113,7 @@
     「1日200gのフルーツを摂ろう」というテーマのもと、フルーツを日常に取り入れる新習慣「フルーツ食」を提案してきた同店の思想を受け継ぎながら、
     素材そのものの美味しさと栄養を自宅でも手軽に楽しめるジュースとして開発しました。
   </p>
-  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\marketing.mp4" autoplay loop muted playsinline
-         onplay="gtag('event','video_play',{event_category:'Video', event_label:'Marketing'});"></video>
+  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\marketing.mp4" autoplay loop muted playsinline></video>
 </section>
 
 <section>
@@ -142,8 +127,7 @@
     コールドプレス製法は低温でゆっくり圧搾し、有用成分の酸化を抑え、フルーツの新鮮でまろやかな味わいを抽出。
     高圧製法はビタミンや微細な香り・風味を保持しつつ十分な殺菌効果を発揮、従来の加熱殺菌では不可能な新鮮さを提供します。
   </p>
-  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\style.mp4" autoplay loop muted playsinline
-         onplay="gtag('event','video_play',{event_category:'Video', event_label:'Style'});"></video>
+  <video src="C:\Users\user\Desktop\Vicca_LP_Assets\videos\style.mp4" autoplay loop muted playsinline></video>
 
   <!-- 商品説明 -->
   <h3 class="animated-title">「フルーツウェルネス」の促進</h3>
@@ -176,29 +160,23 @@
   </p>
 
   <div style="text-align:center;">
-    <a class="cta-button animated-title" href="https://vicca.online/account/login?return_url=%2Faccount" target="_blank"
-       onclick="gtag('event','click',{event_category:'CTA', event_label:'会員登録'});">
-       会員登録はこちら
-    </a>
+    <a class="cta-button animated-title" href="https://vicca.online/account/login?return_url=%2Faccount" target="_blank">会員登録はこちら</a>
   </div>
 </section>
 
 <footer>
   <!-- 会社ロゴ（下部） -->
-  <a class="logo-button animated-image" href="https://aokifruit.jp/" target="_blank"
-     onclick="gtag('event','click',{event_category:'Logo', event_label:'下部会社ロゴ'});">
+  <a class="logo-button animated-image" href="https://aokifruit.jp/" target="_blank">
     <img src="C:\Users\user\Desktop\Vicca_LP_Assets\logos\company_logo.png" alt="青木フルーツ">
   </a>
   <p>&copy; 2025 Vicca. All Rights Reserved.</p>
 </footer>
 
 <script>
-  // アニメーション + スクロール到達イベント
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
         entry.target.classList.add('visible');
-        gtag('event','scroll',{event_category:'Scroll', event_label:entry.target.innerText || entry.target.alt});
       } else {
         entry.target.classList.remove('visible');
       }
