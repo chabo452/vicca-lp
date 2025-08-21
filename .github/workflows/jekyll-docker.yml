@@ -2,9 +2,10 @@ name: Jekyll site CI
 
 on:
   push:
-    branches: [ "update-html" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "update-html" ]
+    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
